@@ -1,5 +1,7 @@
 """
+
 This module calculates Pascal's triangle.
+
 """
 
 def pascal_triangle(n):
