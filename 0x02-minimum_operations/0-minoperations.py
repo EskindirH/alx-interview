@@ -1,8 +1,4 @@
 #!/usr/bin/python3
-"""
-This is a function to calculate the minimum opertion
-"""
-
 def minOperations(n):
     """Minimum operation
 
@@ -12,7 +8,6 @@ def minOperations(n):
     Returns:
         int: number of operation
     """
-
     if n <= 1:
         return 0
 
