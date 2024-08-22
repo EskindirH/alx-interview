@@ -1,4 +1,11 @@
 #!/usr/bin/python3
+"""
+Calculate the minimum number of operations needed to obtain exactly
+n 'H' characters in a text file using only 'Copy All' and 'Paste'
+operations.
+"""
+
+
 def minOperations(n):
     """Minimum operation
 
