@@ -4,6 +4,15 @@ This is a function to calculate the minimum opertion
 """
 
 def minOperations(n):
+    """Minimum operation
+
+    Args:
+        n (int): number
+
+    Returns:
+        int: number of operation
+    """
+
     if n <= 1:
         return 0
 
