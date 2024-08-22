@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 This is a function to calculate the minimum opertion
 """
