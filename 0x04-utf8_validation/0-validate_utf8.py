@@ -13,12 +13,10 @@ def validUTF8(data):
     :return: True if the data is valid UTF-8 encoding, else False
     """
     bytes_to_check = 0
-
     mask1 = 1 << 7
     mask2 = 1 << 6
 
     for num in data:
-
         byte = num & 0xFF
 
         if bytes_to_check == 0:
