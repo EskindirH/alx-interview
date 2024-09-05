@@ -12,7 +12,6 @@ def validUTF8(data):
     :param data: List of integers representing the bytes of the data set
     :return: True if the data is valid UTF-8 encoding, else False
     """
-
     bytes_to_check = 0
 
     mask1 = 1 << 7
