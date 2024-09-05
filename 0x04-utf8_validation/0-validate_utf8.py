@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """
-Determines if a given data set represents 
-a valid UTF-8 encoding.
+Determines if a given data set represents a valid UTF-8 encoding.
 """
 
 
@@ -17,6 +16,7 @@ def validUTF8(data):
     mask2 = 1 << 6
 
     for num in data:
+
         byte = num & 0xFF
 
         if bytes_to_check == 0:
@@ -31,6 +31,7 @@ def validUTF8(data):
         else:
             if (byte >> 6) != 0b10:
                 return False
+
             bytes_to_check -= 1
 
     return bytes_to_check == 0
