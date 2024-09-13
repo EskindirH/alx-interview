@@ -76,4 +76,3 @@ if __name__ == "__main__":
 
     # Solve the N-Queens problem
     nqueens(N)
-
