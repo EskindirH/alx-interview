@@ -23,22 +23,33 @@ function fetchMovieCharacters (movieId) {
     const movieData = JSON.parse(body);
     const characterUrls = movieData.characters;
 
-    characterUrls.forEach((characterUrl) => {
-      request(characterUrl, (charError, charResponse, charBody) => {
-        if (charError) {
-          console.error('Error fetching character data:', charError);
-          return;
-        }
+    // Fetch each character name in sequence
+    fetchCharacterNames(characterUrls, 0);
+  });
+}
 
-        if (charResponse.statusCode !== 200) {
-          console.error('Failed to retrieve character data. Status code:', charResponse.statusCode);
-          return;
-        }
+// Function to fetch and print each character's name in sequence
+function fetchCharacterNames (characterUrls, index) {
+  if (index >= characterUrls.length) {
+    return;
+  }
 
-        const characterData = JSON.parse(charBody);
-        console.log(characterData.name);
-      });
-    });
+  request(characterUrls[index], (charError, charResponse, charBody) => {
+    if (charError) {
+      console.error('Error fetching character data:', charError);
+      return;
+    }
+
+    if (charResponse.statusCode !== 200) {
+      console.error('Failed to retrieve character data. Status code:', charResponse.statusCode);
+      return;
+    }
+
+    const characterData = JSON.parse(charBody);
+    console.log(characterData.name);
+
+    // Fetch the next character
+    fetchCharacterNames(characterUrls, index + 1);
   });
 }
 
@@ -47,7 +58,7 @@ const movieId = process.argv[2];
 
 // Check if a movie ID was provided
 if (!movieId) {
-  console.error('Usage: ./script.js <Movie ID>');
+  console.error('Usage: ./0-starwars_characters.js <Movie ID>');
   process.exit(1);
 }
 
