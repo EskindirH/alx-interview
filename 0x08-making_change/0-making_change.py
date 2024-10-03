@@ -1,18 +1,17 @@
 #!/usr/bin/python3
-
 """
 A module to determine the fewest number of coins needed
 to meet a given total using a dynamic programming approach.
 """
 
-def make_change(coins, total):
+def makeChange(coins, total):
     """
     Determines the fewest number of coins needed to meet a given total.
-    
+
     Args:
         coins (list): A list of integers representing coin denominations.
         total (int): The total amount to meet with the fewest coins.
-    
+
     Returns:
         int: The fewest number of coins needed to meet the total, or -1
              if it is not possible.
