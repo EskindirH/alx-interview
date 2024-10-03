@@ -5,7 +5,7 @@ to meet a given total using an optimized dynamic programming approach.
 """
 
 
-def make_change(coins, total):
+def makeChange(coins, total):
     """
     Determines the fewest number of coins needed to meet a given total.
 
