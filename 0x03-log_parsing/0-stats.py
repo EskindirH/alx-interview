@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 import sys
 import signal
 import re
@@ -10,7 +11,9 @@ LOG_PATTERN = re.compile(
 
 # Initialize variables
 total_file_size = 0
-status_code_count = {200: 0, 301: 0, 400: 0, 401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
+status_code_count = {
+    200: 0, 301: 0, 400: 0, 401: 0, 403: 0, 404: 0, 405: 0, 500: 0
+}
 line_count = 0
 
 
@@ -31,27 +34,34 @@ def handle_interrupt(signal, frame):
 # Attach signal handler for keyboard interrupt
 signal.signal(signal.SIGINT, handle_interrupt)
 
+
+def process_log_line(line):
+    """Process a single log line and update statistics."""
+    global total_file_size, line_count
+
+    match = LOG_PATTERN.match(line)
+    if match:
+        # Extract status code and file size
+        status_code = int(match.group(2))
+        file_size = int(match.group(3))
+
+        # Update total file size
+        total_file_size += file_size
+
+        # Update status code count if it is a valid code
+        if status_code in status_code_count:
+            status_code_count[status_code] += 1
+
+        # Increment line count and print statistics every 10 lines
+        line_count += 1
+        if line_count % 10 == 0:
+            print_statistics()
+
+
 # Process lines from stdin
 try:
     for line in sys.stdin:
-        match = LOG_PATTERN.match(line)
-        if match:
-            # Extract status code and file size
-            status_code = int(match.group(2))
-            file_size = int(match.group(3))
-
-            # Update total file size
-            global total_file_size
-            total_file_size += file_size
-
-            # Update status code count if it is a valid code
-            if status_code in status_code_count:
-                status_code_count[status_code] += 1
-
-            # Increment line count and print statistics every 10 lines
-            line_count += 1
-            if line_count % 10 == 0:
-                print_statistics()
+        process_log_line(line)
 
 except Exception as e:
     print(f"Error occurred: {e}")
