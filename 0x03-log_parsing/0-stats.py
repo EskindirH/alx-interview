@@ -26,7 +26,7 @@ def print_statistics():
 
 
 def handle_interrupt(signal, frame):
-    """Handle KeyboardInterrupt to print statistics and exit."""
+    """Handle KeyboardInterrupt to print statistics and exit gracefully."""
     print_statistics()
     sys.exit(0)
 
@@ -64,8 +64,7 @@ try:
     for line in sys.stdin:
         process_log_line(line)
 
-except Exception as e:
-    print(f"Error occurred: {e}")
-
-# Print final statistics if the script ends naturally
-print_statistics()
+except KeyboardInterrupt:
+    # Handle KeyboardInterrupt and print final statistics gracefully
+    print_statistics()
+    sys.exit(0)
