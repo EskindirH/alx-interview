@@ -56,15 +56,16 @@ def process_log_line(line):
         line_count += 1
         if line_count % 10 == 0:
             print_statistics()
-            print("")  # Add a blank line for clearer output
 
 
 # Process lines from stdin
 try:
     for line in sys.stdin:
         process_log_line(line)
-
 except KeyboardInterrupt:
     # Handle KeyboardInterrupt and print final statistics gracefully
     print_statistics()
     sys.exit(0)
+
+# Print final statistics if the script ends naturally
+print_statistics()
