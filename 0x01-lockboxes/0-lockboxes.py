@@ -30,4 +30,5 @@ def canUnlockAll(boxes):
                 opened.append(key)  # add it to the list to be opened
                 keys.update(boxes[key])  # update keys with keys from the new box
 
-    return all(unlocked)  # check if all boxes are unlocked
+    # Check if all boxes are unlocked (and handle cases where boxes are skipped)
+    return all(unlocked[:n])  # only check up to n (ignore keys beyond the last box)
