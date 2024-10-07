@@ -1,4 +1,6 @@
-def can_unlock_all(boxes):
+#!/usr/bin/python3
+
+def canUnlockAll(boxes):
     """
     Determines if all the boxes can be unlocked.
 
