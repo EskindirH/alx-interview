@@ -1,12 +1,10 @@
 #!/usr/bin/python3
-
 """
-Determines if all the boxes can be unlocked given their
-contents.
+This module defines the can_unlock_all function that determines 
+if all boxes in a list of lists can be unlocked.
 """
 
-
-def can_unlock_all(boxes):
+def canUnlockAll(boxes):
     """
     Determines if all the boxes can be unlocked given their contents.
 
