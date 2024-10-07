@@ -8,40 +8,26 @@ def canUnlockAll(boxes):
     """
     Determines if all the boxes can be unlocked given their contents.
 
-    Each box may contain keys to other boxes, and the goal is to check if 
-    all boxes can be unlocked starting from the first one (which is unlocked by default).
-
     Args:
-        boxes (list of lists): A list where each element represents a box containing 
-        a list of keys (integers). Each key corresponds to another box.
+        boxes (list of lists): A list where each element represents a box 
+                               containing a list of keys (integers).
+                               Each key corresponds to another box.
 
     Returns:
         bool: True if all boxes can be opened, False otherwise.
     """
-    # Total number of boxes
-    n = len(boxes)
-
-    # Keeps track of which boxes have been unlocked (initially all are locked except the first)
-    unlocked = [False] * n
-    unlocked[0] = True  # The first box is always unlocked
-
-    # Keys we initially have (from the first box)
-    keys = set(boxes[0])
-
-    # List of boxes that are available to be opened
-    opened = [0]  # Start with the first box (already unlocked)
+    n = len(boxes)  # number of boxes
+    unlocked = [False] * n  # initially, all boxes are locked
+    unlocked[0] = True  # the first box is unlocked
+    opened = [0]  # list of boxes that are unlocked
+    keys = set(boxes[0])  # keys found in the first box
 
     while opened:
-        # Pop the last opened box from the list
-        box = opened.pop()
+        box = opened.pop()  # get an unlocked box
+        for key in boxes[box]:  # check all keys inside the box
+            if key < n and not unlocked[key]:  # if it unlocks a new box
+                unlocked[key] = True  # unlock the box
+                opened.append(key)  # add it to the list to be opened
+                keys.update(boxes[key])  # update keys with keys from the new box
 
-        # Iterate through the keys found in this box
-        for key in boxes[box]:
-            # If the key corresponds to a valid box that hasn't been unlocked yet
-            if key < n and not unlocked[key]:
-                unlocked[key] = True  # Unlock the box
-                opened.append(key)  # Add it to the list of boxes to open
-                keys.update(boxes[key])  # Add the new keys found in the opened box to our set
-
-    # Return True if all boxes are unlocked, False otherwise
-    return all(unlocked)
+    return all(unlocked)  # check if all boxes are unlocked
