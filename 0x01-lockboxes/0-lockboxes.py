@@ -19,16 +19,6 @@ def can_unlock_all(boxes):
 
     Returns:
         bool: True if all boxes can be opened, False otherwise.
-
-    Example:
-        >>> can_unlock_all([[1], [2], [3], [4], []])
-        True
-
-        >>> can_unlock_all([[1, 2], [0, 3], [4], [], [2]])
-        True
-
-        >>> can_unlock_all([[1], [2], [], [3]])
-        False
     """
     # Total number of boxes
     n = len(boxes)
