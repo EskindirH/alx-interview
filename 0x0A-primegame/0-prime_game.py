@@ -1,19 +1,55 @@
 #!/usr/bin/python3
 """
-Determines the winner of a prime picking game between Maria and Ben.
+Prime Picking Game Module.
+
+This module defines a game between Maria and Ben. The game involves 
+choosing prime numbers from a set and removing the primes and their 
+multiples. The player who cannot make a valid move loses the round. 
+The module includes functionality to determine the winner of multiple 
+rounds of this game.
+
+Functions:
+    is_winner(x, nums): Determines the winner of x rounds based on 
+    optimal play.
 """
+__author__ = "Eskindir H"
+
+
+def sieve(n):
+    """
+    Generates prime numbers up to a given number n using the Sieve of Eratosthenes algorithm.
+
+    Args:
+        n (int): The upper limit for prime number generation.
+
+    Returns:
+        list: A list of prime numbers up to and including n.
+    """
+    sieve = [True] * (n + 1)
+    sieve[0], sieve[1] = False, False  # 0 and 1 are not primes
+    for i in range(2, int(n ** 0.5) + 1):
+        if sieve[i]:
+            for j in range(i * i, n + 1, i):
+                sieve[j] = False
+    return [i for i in range(2, n + 1) if sieve[i]]
 
 
 def is_winner(x, nums):
     """
-    Determines the winner of a prime picking game between Maria and Ben.
+    Determines the winner of the prime picking game between Maria and Ben for x rounds.
+
+    Maria always plays first. The players take turns choosing a prime number from the 
+    set {1, ..., n}, and then remove that prime and all of its multiples. The player 
+    who cannot make a valid move loses.
 
     Args:
         x (int): The number of rounds to be played.
-        nums (list of int): List of n values representing the size of the set (1 to n) for each round.
+        nums (list of int): A list of n values, where each n represents the upper limit 
+                            of the set for a given round.
 
     Returns:
-        str: "Maria" if Maria wins the most rounds, "Ben" if Ben wins the most rounds, or None if there's no clear winner.
+        str: The name of the player who won the most rounds ("Maria" or "Ben").
+        If both win an equal number of rounds, return None.
 
     Raises:
         ValueError: If x is not a positive integer or nums is empty.
@@ -21,45 +57,26 @@ def is_winner(x, nums):
     if not nums or x <= 0:
         return None
 
-    def sieve(n):
-        """
-        Helper function to generate prime numbers up to n using the Sieve of Eratosthenes.
-
-        Args:
-            n (int): The upper limit of numbers to check for primes.
-
-        Returns:
-            list: List of prime numbers up to and including n.
-        """
-        sieve = [True] * (n + 1)
-        sieve[0], sieve[1] = False, False  # 0 and 1 are not primes
-        for i in range(2, int(n ** 0.5) + 1):
-            if sieve[i]:
-                for j in range(i * i, n + 1, i):
-                    sieve[j] = False
-        primes = [i for i in range(2, n + 1) if sieve[i]]
-        return primes
-
-    # Get the largest number in nums to optimize the sieve
+    # Find the largest value in nums to optimize the sieve for all rounds
     max_n = max(nums)
 
-    # Get all primes up to the maximum n in any round
+    # Generate all prime numbers up to the maximum n using the sieve function
     primes_up_to_max_n = sieve(max_n)
 
-    # Initialize win counters for Maria and Ben
+    # Initialize counters for each player's wins
     maria_wins = 0
     ben_wins = 0
 
     # Simulate each round
     for n in nums:
-        # Filter primes up to the current value of n
+        # Get the primes up to the current value of n
         primes = [p for p in primes_up_to_max_n if p <= n]
-        moves = len(primes)  # The number of possible moves (primes)
+        moves = len(primes)  # The number of moves corresponds to the number of primes
 
-        # Determine the winner based on the number of moves
-        if moves % 2 == 1:  # Maria wins if the number of moves is odd
+        # If the number of moves is odd, Maria wins; if even, Ben wins
+        if moves % 2 == 1:
             maria_wins += 1
-        else:  # Ben wins if the number of moves is even
+        else:
             ben_wins += 1
 
     # Determine and return the overall winner
