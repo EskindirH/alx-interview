@@ -12,7 +12,7 @@ Functions:
     is_winner(x, nums): Determines the winner of x rounds based on 
     optimal play.
 """
-__author__ = "Your Name"
+__author__ = "Eskindir H"
 
 
 def sieve(n):
