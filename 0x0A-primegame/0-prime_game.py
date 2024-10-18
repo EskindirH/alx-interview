@@ -12,7 +12,7 @@ Functions:
     is_winner(x, nums): Determines the winner of x rounds based on 
     optimal play.
 """
-__author__ = "Eskindir H"
+__author__ = "Your Name"
 
 
 def sieve(n):
@@ -34,7 +34,7 @@ def sieve(n):
     return [i for i in range(2, n + 1) if sieve[i]]
 
 
-def is_winner(x, nums):
+def isWinner(x, nums):
     """
     Determines the winner of the prime picking game between Maria and Ben for x rounds.
 
